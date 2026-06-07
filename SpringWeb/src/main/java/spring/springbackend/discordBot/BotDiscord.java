@@ -67,16 +67,15 @@ public class BotDiscord {
     }
 
     private String cleanDB() {
+        final StringBuilder stringBuilder = new StringBuilder();
         for (Event event : checkDB()) {
-            final StringBuilder stringBuilder = new StringBuilder();
             //Check if events are old and delete them
             if (LocalDateTime.of(event.getDate(), event.getTime()).isBefore(LocalDateTime.now())) {
                 repository.delete(event);
                 stringBuilder.append(event).append(", ");
             }
-            return stringBuilder.toString();
         }
-        return "";
+        return stringBuilder.toString();
     }
 
     @PostConstruct
@@ -131,8 +130,7 @@ public class BotDiscord {
 
     @PostConstruct
     public void getDbFromBackup() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(BACKUP_FILE_PATH));
+        try (BufferedReader reader = new BufferedReader(new FileReader(BACKUP_FILE_PATH))) {
             String serializedEvents;
             while ((serializedEvents = reader.readLine()) != null) {
                 if (!serializedEvents.isEmpty()) {

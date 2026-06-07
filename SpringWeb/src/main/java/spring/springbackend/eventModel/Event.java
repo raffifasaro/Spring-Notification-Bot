@@ -29,6 +29,10 @@ public class Event {
 
     private final static ObjectMapper MAPPER = new ObjectMapper();
 
+    static {
+        MAPPER.registerModule(new JavaTimeModule());
+    }
+
     private final static Logger LOG = LoggerFactory.getLogger(Event.class);
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -42,9 +46,7 @@ public class Event {
         this.text = text;
     }
 
-    public Event() {
-        MAPPER.registerModule(new JavaTimeModule());
-    }
+    public Event() { }
 
     public int getId() {
         return id;
