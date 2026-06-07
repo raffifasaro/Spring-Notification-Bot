@@ -1,4 +1,4 @@
-# SpringBootWeb
+# Spring Notification Bot
 SpringBoot project implementing a notification Discord Bot using Discord4J with a java spring boot backend utilizing a h2 Database and a React frontend.
 
 - Select date from Web-calendar
